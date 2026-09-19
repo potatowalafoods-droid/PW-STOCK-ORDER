@@ -1,8 +1,22 @@
-const CACHE='pw-stock-order-v1';
-const ASSETS=['./','./index.html','./manifest.json','./icon-192.png','./icon-512.png'];
-self.addEventListener('install',e=>{self.skipWaiting();e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)))});
-self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
-self.addEventListener('fetch',e=>{
-  if(e.request.method!=='GET') return;
-  e.respondWith(fetch(e.request).catch(()=>caches.match(e.request)));
+const CACHE = 'pw-stock-order-v2-potatowala-logo';
+const ASSETS = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png'];
+
+self.addEventListener('install', event => {
+  event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)));
+  self.skipWaiting();
+});
+
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys().then(keys => Promise.all(
+      keys.filter(key => key !== CACHE).map(key => caches.delete(key))
+    ))
+  );
+  self.clients.claim();
+});
+
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    fetch(event.request).catch(() => caches.match(event.request))
+  );
 });
