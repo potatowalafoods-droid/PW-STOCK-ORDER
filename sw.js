@@ -1,4 +1,4 @@
-const CACHE = 'pw-stock-order-v2-potatowala-logo';
+const CACHE = 'pw-stock-order-v3-orange-splash';
 const ASSETS = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', event => {
